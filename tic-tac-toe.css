@@ -1,0 +1,18 @@
+#gameboardparent{
+    display: flex;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+}
+
+#gameboard{
+    display: grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    border:2px solid black;
+}
+.squarebox{
+    width:100px;
+    height:100px;
+    border:1px solid black;
+}
