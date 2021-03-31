@@ -104,12 +104,12 @@ let displayController=(()=>{
     let addLisetener=()=>{
         for (let i=0;i<gameBoard.gameBoardDiv.length;i++){
             gameBoard.gameBoardDiv[i].addEventListener('click',()=>{
-                if (a>b && gameBoard.gameBoardDiv[i].textContent==""){
+                if (a>b && gameBoard.gameBoardDiv[i].textContent=="" && (playerX.point!=3 && playerO.point!=3)){
                     playerX.renderContent(i,"x")
                     playerX.clickCount(i,play,"x",a,b);
                     b++;
                 }
-                else if (b==a && gameBoard.gameBoardDiv[i].textContent=="") {
+                else if (b==a && gameBoard.gameBoardDiv[i].textContent=="" && (playerX.point!=3 && playerO.point!=3)) {
                     playerO.renderContent(i,"o")
                     playerO.clickCount(i,play,"o",a,b);
                     a++;
