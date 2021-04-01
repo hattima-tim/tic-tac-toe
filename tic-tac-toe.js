@@ -1,9 +1,11 @@
 let gameBoard=(()=>{
     let gameArray=[];
     let gameBoardDiv=document.querySelectorAll(".squarebox");
+    let restartButton=document.querySelector('#restart');
     return {
         gameArray,
-        gameBoardDiv
+        gameBoardDiv,
+        restartButton
     }
 })()
 let players=()=>{
@@ -18,13 +20,13 @@ let players=()=>{
         column3:0,
         row1:0,
         row2:0,
-        row4:0,
+        row3:0,
         rightCross:0,
         leftCross:0
     };
     let _clickCount=(column_row_name,play,a,b,c,marker)=>{
         count[column_row_name]+=1;
-        if (count[column_row_name]==3){
+        if (count[column_row_name]%3===0){
             play.check_if_winner(a,b,c,marker);
         }
     }
@@ -86,11 +88,14 @@ let playerO=players();
 let play=(()=>{
     let check_if_winner=(a,b,c,marker)=>{
         for (let i=a;i<=b;i+=c){
-            if (gameBoard.gameBoardDiv[i].textContent===`${marker}`){
+            if (marker==='x' && gameBoard.gameBoardDiv[i].textContent===`${marker}`){
                 playerX.point+=1;
             }
+            else if (marker==='o' && gameBoard.gameBoardDiv[i].textContent===`${marker}`){
+                playerO.point+=1;
+            }
         }
-        if (playerX.point==3){
+        if (playerX.point==3 || playerO.point==3){
             alert(`Player ${marker} Win`)
         }    
     }
@@ -117,8 +122,21 @@ let displayController=(()=>{
             })
         }
     }
+    let enableRestartButton=()=>{
+        gameBoard.restartButton.addEventListener('click',()=>{
+            for (let i=0;i<gameBoard.gameBoardDiv.length;i++){
+                gameBoard.gameBoardDiv[i].textContent='';
+                a=1;
+                b=0;
+                playerX=players();
+                playerO=players();  
+            }
+        })
+    }
     return {
-        addLisetener
+        addLisetener,
+        enableRestartButton
     }
 })()
+displayController.enableRestartButton();
 displayController.addLisetener();
