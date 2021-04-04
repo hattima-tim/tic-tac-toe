@@ -16,7 +16,24 @@ p {
     font-size:2em;
     margin: 0px;
 }
-#restart_container{
+#gameboard_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#gameboard{
+    display: grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    border:2px solid black;
+}
+.squareboxes{
+    width:100px;
+    height:100px;
+    border:1px solid black;
+    font-size:4em;
+}
+#restart_button_container{
     display: flex;
     justify-content: center;
     margin: 20px;
@@ -28,21 +45,4 @@ p {
     font-size: 2em;
     border: solid #2a3a46;
     border-radius: 8px;
-}
-#gameboardparent{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#gameboard{
-    display: grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
-    border:2px solid black;
-}
-.squarebox{
-    width:100px;
-    height:100px;
-    border:1px solid black;
-    font-size:4em;
 }
