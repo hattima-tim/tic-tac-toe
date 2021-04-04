@@ -28,14 +28,14 @@ let players=()=>{
     let _clickCount=(column_row_name,_a,_b,marker,check_draw)=>{
         count[column_row_name]+=1;
         if (count[column_row_name]%3===0){
-            gameBoard.showWinner.textContent=`${marker} won`            
+            gameBoard.showWinner.textContent=`Player ${marker} Won The Game`            
         }
-        else if(gameBoard.gameArray.length===9 && check_draw==='true' && gameBoard.showWinner.textContent===''){
-            gameBoard.showWinner.textContent="Draw"
+        else if(gameBoard.gameArray.length===9 && check_draw==='true' && (gameBoard.showWinner.textContent==="Player O Turn" || gameBoard.showWinner.textContent==="Player X Turn")){
+            gameBoard.showWinner.textContent="Tie!"
         }
     }
-    let clickCount=(i,marker,_a,_b)=>{
-        (_a>_b)?marker==="x":marker==="O"    
+    let clickCount=(i,marker)=>{
+        (gameBoard.showWinner.textContent==="Player X Turn")?marker==="X":marker==="O"    
         switch(i){
             case 0:
                 _clickCount('row1',0,2,`${marker}`);
@@ -89,20 +89,18 @@ let players=()=>{
 let playerX=players();
 let playerO=players();
 let displayController=(()=>{
-    let a=1;
-    let b=0;
     let addLisetener=()=>{
         for (let i=0;i<gameBoard.gameBoardDiv.length;i++){
             gameBoard.gameBoardDiv[i].addEventListener('click',()=>{
-                if (a>b && gameBoard.gameBoardDiv[i].textContent=="" && gameBoard.showWinner.textContent===""){
-                    playerX.renderContent(i,"x")
-                    playerX.clickCount(i,"x",a,b);
-                    b++;
+                if (gameBoard.gameBoardDiv[i].textContent=="" && gameBoard.showWinner.textContent==="Player X Turn"){
+                    gameBoard.showWinner.textContent="Player O Turn"
+                    playerX.renderContent(i,"X")
+                    playerX.clickCount(i,"X");
                 }
-                else if (b==a && gameBoard.gameBoardDiv[i].textContent=="" && gameBoard.showWinner.textContent==="") {
-                    playerO.renderContent(i,"o")
-                    playerO.clickCount(i,"o",a,b);
-                    a++;
+                else if (gameBoard.gameBoardDiv[i].textContent=="" && gameBoard.showWinner.textContent==="Player O Turn") {
+                    gameBoard.showWinner.textContent="Player X Turn"
+                    playerO.renderContent(i,"O")
+                    playerO.clickCount(i,"O");
                 }
             })
         }
@@ -111,12 +109,10 @@ let displayController=(()=>{
         gameBoard.restartButton.addEventListener('click',()=>{
             for (let i=0;i<gameBoard.gameBoardDiv.length;i++){
                 gameBoard.gameBoardDiv[i].textContent='';
-                a=1;
-                b=0;
                 playerX=players();
                 playerO=players();
                 gameBoard.gameArray=[];
-                gameBoard.showWinner.textContent=""  
+                gameBoard.showWinner.textContent="Player X Turn"
             }
         })
     }
